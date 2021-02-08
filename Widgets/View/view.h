@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QLabel>
 #include <QLayout>
+#include <QDebug>
 
 class View : public QWidget
 {
@@ -16,7 +17,12 @@ public slots:
 
 private:
     QString m_name;
+    QLabel* m_label;
     QLabel* m_value;
+
+//    // QWidget interface
+protected:
+    virtual void resizeEvent(QResizeEvent *event);
 };
 
 #endif // VIEW_H

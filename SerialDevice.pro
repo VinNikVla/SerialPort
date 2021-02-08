@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT += serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -31,7 +32,8 @@ SOURCES += \
     CPP/Device/structdevice.cpp \
     CPP/UnitsPageModel/valuemodel.cpp \
     Widgets/View/view.cpp \
-    Widgets/Dialog/settingsserialport.cpp
+    Widgets/Dialog/settingsserialport.cpp \
+    Widgets/Dialog/serialportinfo.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -40,4 +42,9 @@ HEADERS += \
     CPP/Device/structdevice.h \
     CPP/UnitsPageModel/valuemodel.h \
     Widgets/View/view.h \
-    Widgets/Dialog/settingsserialport.h
+    Widgets/Dialog/settingsserialport.h \
+    CPP/SerialPort/serial_common.h \
+    Widgets/Dialog/serialportinfo.h
+
+RESOURCES += \
+    resourses.qrc

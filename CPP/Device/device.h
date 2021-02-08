@@ -8,6 +8,7 @@
 //#include "CPP/SerialPort/serial_blocking.h"
 #include "CPP/UnitsPageModel/valuemodel.h"
 //#include "CPP/SerialPort/serial_common.h"
+
 #include <QMap>
 #include <QDebug>
 

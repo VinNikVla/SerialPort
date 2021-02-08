@@ -1,6 +1,11 @@
 #include "settingsserialport.h"
 
-SettingsSerialPort::SettingsSerialPort()
+SettingsSerialPort::SettingsSerialPort(QWidget *parent):QDialog(parent)
 {
 
 }
+
+//void SettingsSerialPort::showPortInfo(int idx)
+//{
+
+//}

@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Images/settings.png</file>
+        <file>Images/disconnect.png</file>
+        <file>Images/connect.png</file>
+    </qresource>
+</RCC>

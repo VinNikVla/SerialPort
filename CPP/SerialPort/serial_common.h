@@ -1,13 +1,17 @@
 #pragma once
 
-#include <QSerialPort>
+#include <QtSerialPort/QSerialPort>
 
-struct SerialProtocolPropertysStruct /// структура, хранящая настройки порта для сопряжения с различными системами
-{
+struct PropertySerialPort {
     QString name;
-    QSerialPort::BaudRate baudrate;
-    QSerialPort::DataBits databits;
+    qint32 baudRate;
+    QString stringBaudRate;
+    QSerialPort::DataBits dataBits;
+    QString stringDataBits;
     QSerialPort::Parity parity;
+    QString stringParity;
     QSerialPort::StopBits stopBits;
-    QSerialPort::FlowControl flow;
+    QString stringStopBits;
+    QSerialPort::FlowControl flowControl;
+    QString stringFlowControl;
 };

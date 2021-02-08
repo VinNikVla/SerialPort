@@ -4,7 +4,7 @@ View::View(const QString &_name, QWidget *parent):
     QWidget(parent),
     m_name(_name)
 {
-    QLabel* m_label = new QLabel(m_name, this);
+    m_label = new QLabel(m_name, this);
     m_label->setFrameStyle(QFrame::Plain | QFrame::StyledPanel);
 
     m_value = new QLabel("UNKNOWN", this);
@@ -26,4 +26,11 @@ QString View::getName() const
 void View::slotValueChanged(const QString &value)
 {
     m_value->setText(value);
+}
+
+void View::resizeEvent(QResizeEvent *event)
+{
+    qDebug() << size().width() << " " << size().height();
+//    m_label->resize(this->size().width() * 0.25, this->size().height());
+//    m_value->resize(this->size().width() * 0.75, this->size().height());
 }
