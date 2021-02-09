@@ -29,31 +29,31 @@ public:
     QList<View*>* getList();
 
 signals:
-    void newData(const QByteArray& data);
+    void newProperty(const PropertySerialPort& prop);
+    void closeSerialPort();
+    void openSerialPort();
 
 public slots:
     void showStatusMessage(const QString& msg);
+    void showError(const QString& type, const QString& msg);
+
+    void slotCloseSerialPort(bool close);
+    void slotOpenSerialPort(bool open);
+
 private slots:
-    void test();
-    void closeSerialPort();
-    void openSerialPort();
-    void readData();
+    void slotNewProperty(const PropertySerialPort& prop);
 
 private:
     QList<View*> mainList;
-    QGroupBox* view;
-    QGroupBox* control;
     QLabel *m_status;
-    //SettingsSerialPort* m_settings = nullptr;
+    SettingsSerialPort* m_settings = nullptr;
     QToolBar* toolBar;
-    QStatusBar* statusBar;
-    QSerialPort *m_serial = nullptr;
 
-    void createViewBox();
+    QGroupBox *createViewBox();
+    QToolBar *createToolBar();
+    QGroupBox *createStatusBar();
 
-    void createToolBar();
-
-    void createStatusBar();
+    void EnableAction(bool equal, const QString& type);
 };
 
 #endif // MAINWINDOW_H

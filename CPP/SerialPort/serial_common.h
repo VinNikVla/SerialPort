@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QtSerialPort/QSerialPort>
+#include <QString>
 
 struct PropertySerialPort {
     QString name;
@@ -15,3 +16,6 @@ struct PropertySerialPort {
     QSerialPort::FlowControl flowControl;
     QString stringFlowControl;
 };
+
+
+QString toString(const PropertySerialPort& prop);

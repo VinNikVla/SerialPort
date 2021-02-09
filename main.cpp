@@ -12,6 +12,20 @@ int main(int argc, char *argv[])
 
     MainWindow w;
 
+    QObject::connect(&w, &MainWindow::newProperty, mainDevice, &Device::newProperty);//change property
+
+
+    QObject::connect(&w, &MainWindow::openSerialPort, mainDevice, &Device::openSerialPort);//open Com-порт
+    QObject::connect(mainDevice, &Device::signalStateOpen , &w, &MainWindow::slotOpenSerialPort);
+
+    QObject::connect(&w, &MainWindow::closeSerialPort, mainDevice, &Device::closeSerialPort);//close com-port
+    QObject::connect(mainDevice, &Device::signalStateClose , &w, &MainWindow::slotCloseSerialPort);
+
+    QObject::connect(mainDevice, &Device::signalMessage, &w, &MainWindow::showStatusMessage);//show message
+    QObject::connect(mainDevice, &Device::signalError, &w, &MainWindow::showError);
+
+
+
     for(QList<View*>::iterator itb = w.getList()->begin(), ite = w.getList()->end(); itb != ite; itb++)
     {
         qDebug() << (*itb)->getName();

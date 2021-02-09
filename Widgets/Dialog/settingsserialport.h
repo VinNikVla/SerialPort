@@ -5,32 +5,31 @@
 #include <QtSerialPort/QSerialPort>
 #include "CPP/SerialPort/serial_common.h"
 #include <QComboBox>
+#include "serialportinfo.h"
+#include "serialportproperty.h"
+#include <QPushButton>
 
 class SettingsSerialPort:public QDialog
 {
     Q_OBJECT
 public:
-
-
-
-
-
-
     explicit SettingsSerialPort(QWidget *parent = nullptr);
 
-//private slots:
-//    void showPortInfo(int idx);
-//    void apply();
-//    void checkCustomBaudRatePolicy(int idx);
-//    void checkCustomDevicePathPolicy(int idx);
-//private:
-//    void fillPortsParameters();
-//    void fillPortsInfo();
-//    void updateSettings();
+private slots:
+    void apply();
+
+signals:
+    void newProperty(const PropertySerialPort& prop);
 
 private:
-    QComboBox* serialPortInfoListBox = nullptr;
     PropertySerialPort m_currentSettings;
+    SerialPortINfo* m_infoAboutPort;
+    SerialPortProperty* m_propertyPort;
+    QGridLayout* mainLayout = nullptr;
+
+    QGroupBox* createInfoAboutPort();
+    QGroupBox* createPropertyPort();
+    QPushButton* buttonApply = nullptr;
 
 };
 

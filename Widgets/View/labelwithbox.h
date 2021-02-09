@@ -20,6 +20,7 @@ class LabelWithBox : public QWidget
 public:
     explicit LabelWithBox(const QString& _name, QWidget *parent = nullptr);
     int itemData();
+    QString currentText();
 signals:
 
 public slots:

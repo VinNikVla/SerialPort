@@ -21,6 +21,11 @@ int LabelWithBox::itemData()
     return value->itemData(value->currentIndex()).toInt();
 }
 
+QString LabelWithBox::currentText()
+{
+    return value->currentText();
+}
+
 void LabelWithBox::addItem(const QString &text, const QVariant &data)
 {
     value->addItem(text, data);

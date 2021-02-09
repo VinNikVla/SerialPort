@@ -11,6 +11,8 @@
 
 #include <QMap>
 #include <QDebug>
+#include <QSerialPort>
+#include "CPP/SerialPort/serial_common.h"
 
 class Device : public QObject
 {
@@ -22,19 +24,30 @@ public:
     ValueModel* getValueModel(const QString& name) const;
 
 signals:
-    //нужно как-то обработать имя порта
-    //будет типа раскрывающееся меню, а в нем доступные порты
-    //как палитра в 2221-6
+    void signalError(const QString& type, const QString& error);
+    void signalMessage(const QString& msg);
+
+    void signalStateOpen(bool state);
+    void signalStateClose(bool state);
 
 public slots:
     void DataChange(const StructDevice& dataDevice);
-    //void setettingsComPort(const SerialProtocolPropertysStruct& property);
+    void newProperty(const PropertySerialPort& prop);
+    void closeSerialPort();
+    void openSerialPort();
+
+private slots:
+    void readData();
+    void handleError(QSerialPort::SerialPortError error);
+
+
 private:
 
     QMap<QString, ValueModel*> mainMap;
     ParserDevice* parser;
-    //BlockComPort* comPortDevice;
+    QSerialPort* m_serialPort;
     QString m_nameComPort;
+    PropertySerialPort m_currentProperty;
 
 
 

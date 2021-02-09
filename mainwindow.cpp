@@ -2,15 +2,8 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent),
-      m_serial(new QSerialPort(this))
+      m_settings(new SettingsSerialPort(this))
 {
-
-
-
-
-
-    createToolBar();
-
 
 
     mainList.append(new View("X", this));
@@ -20,18 +13,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     QVBoxLayout* layout = new QVBoxLayout(this);
 
+    layout->addWidget(createToolBar());
+    layout->addWidget(createViewBox());
+    layout->addWidget(createStatusBar());
 
-    createViewBox();
-    createStatusBar();
-
-    layout->addWidget(toolBar);
-    layout->addWidget(view);
-    layout->addWidget(statusBar);
-
-    //setMinimumSize(300, 300);
     setLayout(layout);
 
-    connect(m_serial, &QSerialPort::readyRead, this, &MainWindow::readData);
+
+    //setMinimumSize(200, 420);
+
+    connect(m_settings, &SettingsSerialPort::newProperty, this, &MainWindow::slotNewProperty);
 
 
 }
@@ -59,63 +50,57 @@ QList<View *> *MainWindow::getList()
 
 }
 
-void MainWindow::test()
-{
-    qDebug() << "Pressed Congigure";
-    showStatusMessage("Pressed Configure///////////////////////////////////////////////////////////////////////");
-}
 
-void MainWindow::closeSerialPort()
-{
-    if(m_serial->isOpen())
-    {
-        m_serial->close();
-    }
-
-    for(const auto& i : toolBar->actions())
-    {
-        i->setEnabled(i->text() != "disconnect");
-    }
-
-
-
-
-
-    showStatusMessage("Disconnected");
-}
-
-void MainWindow::openSerialPort()
-{
-    if(m_serial->open(QIODevice::ReadOnly))
-    {
-        for(const auto& i : toolBar->actions())
-        {
-            i->setEnabled(i->text() == "disconnect");
-        }
-    }
-    else
-    {
-        QMessageBox::critical(this, "Error", m_serial->errorString());
-        showStatusMessage("Open Error");
-    }
-}
-
-void MainWindow::readData()
-{
-    const QByteArray data = m_serial->readAll();
-
-    emit newData(data);
-
-}
 
 void MainWindow::showStatusMessage(const QString &msg)
 {
     m_status->setText(msg);
 }
 
-void MainWindow::createViewBox()
+void MainWindow::showError(const QString &type, const QString &msg)
 {
-    view = new QGroupBox("Data from Device", this);
+    QMessageBox::critical(this, type, msg);
+}
+
+void MainWindow::slotCloseSerialPort(bool close)
+{
+    if(!close)
+    {
+//        for(const auto& i : toolBar->actions())
+//        {
+//            i->setEnabled(i->text() != "disconnect");
+//        }
+        EnableAction(false, "disconnect");
+    }
+}
+
+void MainWindow::slotOpenSerialPort(bool open)
+{
+    if(open)
+    {
+//        for(const auto& i : toolBar->actions())
+//        {
+//            i->setEnabled(i->text() == "disconnect");
+//        }
+        EnableAction(true, "disconnect");
+    }
+}
+
+void MainWindow::slotNewProperty(const PropertySerialPort &prop)
+{
+//    for(const auto& i : toolBar->actions())
+//    {
+//        i->setEnabled(i->text() != "disconnect");
+//    }
+    EnableAction(false, "disconnect");
+    showStatusMessage("Requested Parameters\n" + toString(prop));
+
+    emit newProperty(prop);
+}
+
+QGroupBox* MainWindow::createViewBox()
+{
+    QGroupBox* view = new QGroupBox("Data from Device", this);
 
     QVBoxLayout* layout = new QVBoxLayout(this);
 
@@ -126,30 +111,59 @@ void MainWindow::createViewBox()
     }
 
     view->setLayout(layout);
+
+    return view;
 }
 
 
 
-void MainWindow::createToolBar()
+QToolBar* MainWindow::createToolBar()
 {
     toolBar = new QToolBar("Управление последовательным портом", this);
 
-    toolBar->addAction(QPixmap(":/Images/settings.png"), "settings", this,SLOT(test()));
+    toolBar->addAction(QPixmap(":/Images/settings.png"), "settings", m_settings, &SettingsSerialPort::show);
     toolBar->addSeparator();
-    toolBar->addAction(QPixmap(":/Images/connect.png"), "connect", this,SLOT(openSerialPort()));
+    toolBar->addAction(QPixmap(":/Images/connect.png"), "connect", this,&MainWindow::openSerialPort);
     toolBar->addSeparator();
-    toolBar->addAction(QPixmap(":/Images/disconnect.png"), "disconnect", this,SLOT(closeSerialPort()));
+    toolBar->addAction(QPixmap(":/Images/disconnect.png"), "disconnect", this, &MainWindow::closeSerialPort);
+
+//    for(const auto& i : toolBar->actions())
+//    {
+//        i->setEnabled(i->text() == "settings");
+//    }
+    EnableAction(true, "settings");
+
+    return toolBar;
+}
+
+QGroupBox* MainWindow::createStatusBar()
+{
+    QGroupBox* statusBar = new QGroupBox("Messages", this);
+
+    QVBoxLayout* layout = new QVBoxLayout(this);
+
+    m_status = new QLabel(this);
+    m_status->setMinimumSize(140, 120);
+
+    layout->addWidget(m_status);
+
+    statusBar->setLayout(layout);
+
+    return statusBar;
+}
+
+void MainWindow::EnableAction(bool equal, const QString &type)
+{
 
     for(const auto& i : toolBar->actions())
     {
-        i->setEnabled(i->text() != "disconnect");
+        if(equal)
+        {
+            i->setEnabled(i->text() == type);
+        }
+        else
+        {
+            i->setEnabled(i->text() != type);
+        }
     }
-
-}
-
-void MainWindow::createStatusBar()
-{
-    statusBar = new QStatusBar(this);
-    m_status = new QLabel(this);
-    statusBar->addWidget(m_status);
 }

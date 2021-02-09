@@ -33,7 +33,10 @@ SOURCES += \
     CPP/UnitsPageModel/valuemodel.cpp \
     Widgets/View/view.cpp \
     Widgets/Dialog/settingsserialport.cpp \
-    Widgets/Dialog/serialportinfo.cpp
+    Widgets/Dialog/serialportinfo.cpp \
+    Widgets/Dialog/serialportproperty.cpp \
+    Widgets/View/labelwithbox.cpp \
+    CPP/SerialPort/serial_common.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -44,7 +47,9 @@ HEADERS += \
     Widgets/View/view.h \
     Widgets/Dialog/settingsserialport.h \
     CPP/SerialPort/serial_common.h \
-    Widgets/Dialog/serialportinfo.h
+    Widgets/Dialog/serialportinfo.h \
+    Widgets/Dialog/serialportproperty.h \
+    Widgets/View/labelwithbox.h
 
 RESOURCES += \
     resourses.qrc
