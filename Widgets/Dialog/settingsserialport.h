@@ -2,9 +2,7 @@
 #define SETTINGSSERIALPORT_H
 
 #include <QDialog>
-#include <QtSerialPort/QSerialPort>
 #include "CPP/SerialPort/serial_common.h"
-#include <QComboBox>
 #include "serialportinfo.h"
 #include "serialportproperty.h"
 #include <QPushButton>
@@ -23,12 +21,11 @@ signals:
 
 private:
     PropertySerialPort m_currentSettings;
-    SerialPortINfo* m_infoAboutPort;
+    SerialPortInfo* m_infoAboutPort;
     SerialPortProperty* m_propertyPort;
-    QGridLayout* mainLayout = nullptr;
 
-    QGroupBox* createInfoAboutPort();
-    QGroupBox* createPropertyPort();
+    QGridLayout* mainLayout = nullptr;
+    QGroupBox* createBox(const QString& name, const QList<QWidget*>* container);
     QPushButton* buttonApply = nullptr;
 
 };

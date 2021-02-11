@@ -1,7 +1,7 @@
 #include "settingsserialport.h"
 
 SettingsSerialPort::SettingsSerialPort(QWidget *parent):QDialog(parent),
-    m_infoAboutPort(new SerialPortINfo(this)),
+    m_infoAboutPort(new SerialPortInfo(this)),
     m_propertyPort(new SerialPortProperty(this)),
     buttonApply(new QPushButton("Apply", this))
 {
@@ -10,8 +10,8 @@ SettingsSerialPort::SettingsSerialPort(QWidget *parent):QDialog(parent),
 
     mainLayout = new QGridLayout(this);
 
-    mainLayout->addWidget(createInfoAboutPort(), 0, 0);
-    mainLayout->addWidget(createPropertyPort(), 0, 1);
+    mainLayout->addWidget(createBox("Select Serial Port", m_infoAboutPort->getElements()), 0, 0);
+    mainLayout->addWidget(createBox("Select Parameters", m_propertyPort->getElements()), 0, 1);
     mainLayout->addWidget(buttonApply, 5, 0, 5, 2);
     setLayout(mainLayout);
 }
@@ -25,35 +25,20 @@ void SettingsSerialPort::apply()
     hide();
 }
 
-QGroupBox *SettingsSerialPort::createInfoAboutPort()
+QGroupBox *SettingsSerialPort::createBox(const QString &name, const QList<QWidget *> *container)
 {
-    QGroupBox* boxInfoAboutPort = new QGroupBox("Select Serial Port", this);
+    QGroupBox* box = new QGroupBox(name, this);
 
     QVBoxLayout* vLayout = new QVBoxLayout(this);
 
-    for(auto itb = m_infoAboutPort->getElements()->begin(), ite = m_infoAboutPort->getElements()->end(); itb != ite; ++itb)
+    for(auto itb = container->begin(), ite = container->end(); itb != ite; ++itb)
     {
         vLayout->addWidget(*itb);
     }
 
-    boxInfoAboutPort->setLayout(vLayout);
+    box->setLayout(vLayout);
 
-    return boxInfoAboutPort;
+    return box;
 
 }
 
-QGroupBox *SettingsSerialPort::createPropertyPort()
-{
-    QGroupBox* boxPropertyPort = new QGroupBox("Select Parameters", this);
-
-    QVBoxLayout* vLayout = new QVBoxLayout(this);
-
-    for(auto itb = m_propertyPort->getElements()->begin(), ite = m_propertyPort->getElements()->end(); itb != ite; ++itb)
-    {
-        vLayout->addWidget(*itb);
-    }
-
-    boxPropertyPort->setLayout(vLayout);
-
-    return boxPropertyPort;
-}
