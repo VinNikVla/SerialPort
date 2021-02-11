@@ -10,7 +10,6 @@ class ValueModel :public QObject
 public:
     ValueModel(QObject *parent, QString val = "UNKNOWN");
 
-//    Q_PROPERTY(QString value READ getValue WRITE setValue NOTIFY valueChanged)
     QString getValue() const;
 
 signals:

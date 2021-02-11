@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 
 
 
-    for(QList<View*>::iterator itb = w.getList()->begin(), ite = w.getList()->end(); itb != ite; itb++)
+    for(QList<View*>::iterator itb = w.getList()->begin(), ite = w.getList()->end(); itb != ite; itb++)//connect business-logic with view
     {
         qDebug() << (*itb)->getName();
         QObject::connect(mainDevice->getValueModel((*itb)->getName()), &ValueModel::valueChanged, *itb, &View::slotValueChanged);

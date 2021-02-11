@@ -19,9 +19,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     setLayout(layout);
 
-
-    //setMinimumSize(200, 420);
-
     connect(m_settings, &SettingsSerialPort::newProperty, this, &MainWindow::slotNewProperty);
 
 
@@ -66,10 +63,6 @@ void MainWindow::slotCloseSerialPort(bool close)
 {
     if(!close)
     {
-//        for(const auto& i : toolBar->actions())
-//        {
-//            i->setEnabled(i->text() != "disconnect");
-//        }
         EnableAction(false, "disconnect");
     }
 }
@@ -78,20 +71,13 @@ void MainWindow::slotOpenSerialPort(bool open)
 {
     if(open)
     {
-//        for(const auto& i : toolBar->actions())
-//        {
-//            i->setEnabled(i->text() == "disconnect");
-//        }
         EnableAction(true, "disconnect");
     }
 }
 
 void MainWindow::slotNewProperty(const PropertySerialPort &prop)
 {
-//    for(const auto& i : toolBar->actions())
-//    {
-//        i->setEnabled(i->text() != "disconnect");
-//    }
+
     EnableAction(false, "disconnect");
     showStatusMessage("Requested Parameters\n" + toString(prop));
 
@@ -127,10 +113,6 @@ QToolBar* MainWindow::createToolBar()
     toolBar->addSeparator();
     toolBar->addAction(QPixmap(":/Images/disconnect.png"), "disconnect", this, &MainWindow::closeSerialPort);
 
-//    for(const auto& i : toolBar->actions())
-//    {
-//        i->setEnabled(i->text() == "settings");
-//    }
     EnableAction(true, "settings");
 
     return toolBar;

@@ -83,14 +83,6 @@ void Device::openSerialPort()
 {
     if(m_serialPort->open(QIODevice::ReadOnly))
     {
-//        emit signalMessage("Connected to " +
-//                           m_currentProperty.name + " :\n" +
-//                           "Baud Rate: " + m_currentProperty.stringBaudRate + "\n" +
-//                           "Data Bits: " + m_currentProperty.stringDataBits + "\n" +
-//                           "Parity: " + m_currentProperty.stringParity + "\n" +
-//                           "Stop Bits: " + m_currentProperty.stringStopBits + "\n" +
-//                           "Flow Control: " + m_currentProperty.stringFlowControl);
-
         emit signalMessage("Connected to: \n" + toString(m_currentProperty));
     }
     else
@@ -102,10 +94,4 @@ void Device::openSerialPort()
     emit signalStateOpen(m_serialPort->isOpen());
 
 }
-
-//void Device::setettingsComPort(const SerialProtocolPropertysStruct &property)
-//{
-
-//}
-
 
