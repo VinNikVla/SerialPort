@@ -1,14 +1,14 @@
 #include "serialportinfo.h"
 
-SerialPortINfo::SerialPortINfo(QWidget *parent) : QWidget(parent)
+SerialPortInfo::SerialPortInfo(QWidget *parent) : SerialPortAbstract(parent)
 {
 
     createElements();
 
     connect(serialPortInfoListBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
-            this, &SerialPortINfo::showPortsInfo);
+            this, &SerialPortInfo::showPortsInfo);
     connect(serialPortInfoListBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
-            this, &SerialPortINfo::checkCustomDevicePathPolicy);
+            this, &SerialPortInfo::checkCustomDevicePathPolicy);
 
 
     fillPortsInfo();
@@ -16,18 +16,13 @@ SerialPortINfo::SerialPortINfo(QWidget *parent) : QWidget(parent)
 
 }
 
-QString SerialPortINfo::getPortName() const
+QString SerialPortInfo::getPortName() const
 {
     qDebug() << "portinfo" << serialPortInfoListBox->currentText();
     return serialPortInfoListBox->currentText();
 }
 
-QList<QWidget *>*SerialPortINfo::getElements()
-{
-    return &listElements;
-}
-
-void SerialPortINfo::showPortsInfo(int index)
+void SerialPortInfo::showPortsInfo(int index)
 {
     if(index == -1)
         return;
@@ -43,7 +38,7 @@ void SerialPortINfo::showPortsInfo(int index)
     productID   ->setText("Product Identifier: "  + (list.count() > 6 ? list.at(6) : blankString));
 }
 
-void SerialPortINfo::checkCustomDevicePathPolicy(int idx)
+void SerialPortInfo::checkCustomDevicePathPolicy(int idx)
 {
     const bool isCustomPath = !serialPortInfoListBox->itemData(idx).isValid();
     serialPortInfoListBox->setEditable(isCustomPath);
@@ -51,7 +46,7 @@ void SerialPortINfo::checkCustomDevicePathPolicy(int idx)
         serialPortInfoListBox->clearEditText();
 }
 
-void SerialPortINfo::fillPortsInfo()
+void SerialPortInfo::fillPortsInfo()
 {
     serialPortInfoListBox->clear();
 
@@ -73,7 +68,7 @@ void SerialPortINfo::fillPortsInfo()
 
 }
 
-void SerialPortINfo::createElements()
+void SerialPortInfo::createElements()
 {
     serialPortInfoListBox = new QComboBox(this);
     listElements.append(serialPortInfoListBox);

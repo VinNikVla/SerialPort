@@ -1,7 +1,6 @@
 #ifndef SERIALPORTINFO_H
 #define SERIALPORTINFO_H
 
-#include <QWidget>
 #include <QComboBox>
 #include <QtSerialPort/QSerialPortInfo>
 #include <QComboBox>
@@ -11,11 +10,10 @@
 #include <QIntValidator>
 #include <QLineEdit>
 #include <QString>
-#include <QList>
-#include <QDebug>
+#include "Widgets/Dialog/serialportabstract.h"
 
 static const char blankString[] = QT_TRANSLATE_NOOP("SerialPortINfo", "N/A");
-class SerialPortINfo : public QWidget
+class SerialPortInfo : public SerialPortAbstract
 {
     Q_OBJECT
 
@@ -31,23 +29,15 @@ class SerialPortINfo : public QWidget
 
 
 public:
-    explicit SerialPortINfo(QWidget *parent = nullptr);
+    explicit SerialPortInfo(QWidget *parent = nullptr);
     QString getPortName() const;
-    QList<QWidget*> *getElements();
-
-
-
-signals:
-
-public slots:
 
 private slots:
     void showPortsInfo(int index);
     void checkCustomDevicePathPolicy(int idx);
+
 private:
     void fillPortsInfo();
-    QList<QWidget*> listElements;
-
     void createElements();
 
 

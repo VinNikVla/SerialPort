@@ -1,34 +1,29 @@
 #include "serialportproperty.h"
 
-SerialPortProperty::SerialPortProperty(QWidget *parent) : QWidget(parent)
+SerialPortProperty::SerialPortProperty(QWidget *parent) : SerialPortAbstract(parent)
 {
 
     baudRate =  new LabelWithBox("Baud Rate:", this);
     fillBaudRate();
-    list.append(baudRate);
+    listElements.append(baudRate);
 
     dataBits = new LabelWithBox("Data Bits:", this);
     fillDataBits();
-    list.append(dataBits);
+    listElements.append(dataBits);
 
     parity = new LabelWithBox("Parity:", this);
     fillParity();
-    list.append(parity);
+    listElements.append(parity);
 
     stopBits = new LabelWithBox("Stop Bits:", this);
     fillStopBits();
-    list.append(stopBits);
+    listElements.append(stopBits);
 
     flowCotrol = new LabelWithBox("Flow Control:", this);
     fillFlowControl();
-    list.append(flowCotrol);
+    listElements.append(flowCotrol);
 
 
-}
-
-QList<QWidget *> *SerialPortProperty::getElements()
-{
-    return &list;
 }
 
 PropertySerialPort *SerialPortProperty::getProperty()
