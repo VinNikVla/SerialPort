@@ -8,27 +8,25 @@
 #include <QLayout>
 #include <QResizeEvent>
 #include <QDebug>
+#include "abstractview.h"
 
-class LabelWithBox : public QWidget
+class LabelWithBox : public AbstractView
 {
     Q_OBJECT
 
-    QLabel* label = nullptr;
     QComboBox* value = nullptr;
+    QLabel* label;
 
-    QString m_name;
 public:
     explicit LabelWithBox(const QString& _name, QWidget *parent = nullptr);
     int itemData();
     QString currentText();
-signals:
 
 public slots:
     void addItem(const QString& text, const QVariant& data);
 
-    // QWidget interface
-protected:
-    virtual void resizeEvent(QResizeEvent *event);
+private:
+    virtual void createLayout() override;
 };
 
 #endif // LABELWITHBOX_H

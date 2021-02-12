@@ -5,24 +5,24 @@
 #include <QLabel>
 #include <QLayout>
 #include <QDebug>
+#include "abstractview.h"
 
-class View : public QWidget
+class View : public AbstractView
 {
     Q_OBJECT
+
+    QLabel* m_label;
+    QLabel* m_value;
+
 public:
     explicit View(const QString& _name, QWidget *parent = nullptr);
-    QString getName() const;
+
 public slots:
     void slotValueChanged(const QString& value);
 
 private:
-    QString m_name;
-    QLabel* m_label;
-    QLabel* m_value;
+    virtual void createLayout() override;
 
-//    // QWidget interface
-protected:
-    virtual void resizeEvent(QResizeEvent *event);
 };
 
 #endif // VIEW_H

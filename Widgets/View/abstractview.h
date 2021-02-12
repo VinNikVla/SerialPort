@@ -2,16 +2,21 @@
 #define ABSTRACTVIEW_H
 
 #include <QWidget>
+#include <QString>
+#include <QLayout>
 
 class AbstractView : public QWidget
 {
     Q_OBJECT
 public:
-    explicit AbstractView(QWidget *parent = nullptr);
+    explicit AbstractView(const QString& _name, QWidget *parent = nullptr);
+    const QString *getName() const;
 
-signals:
+protected:
+    QString m_name;
+    QLayout* m_layout;
 
-public slots:
+    virtual void createLayout() = 0;
 };
 
 #endif // ABSTRACTVIEW_H

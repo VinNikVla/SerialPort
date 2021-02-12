@@ -1,19 +1,15 @@
 #include "labelwithbox.h"
 
 LabelWithBox::LabelWithBox(const QString &_name, QWidget *parent) :
-    QWidget(parent),
-    m_name(_name)
+    AbstractView(_name, parent)
 {
     label = new QLabel(m_name, this);
     label->setMinimumSize(100, 30);
     value = new QComboBox(this);
     value->setMinimumSize(100, 30);
 
-    QHBoxLayout* mainlayout = new QHBoxLayout(this);
+    createLayout();
 
-    mainlayout->addWidget(label);
-    mainlayout->addWidget(value);
-    setLayout(mainlayout);
 }
 
 int LabelWithBox::itemData()
@@ -31,10 +27,12 @@ void LabelWithBox::addItem(const QString &text, const QVariant &data)
     value->addItem(text, data);
 }
 
-
-void LabelWithBox::resizeEvent(QResizeEvent *event)
+void LabelWithBox::createLayout()
 {
-    qDebug() << event->size();
-    //setMinimumSize(label->size() + value->size());
-    qDebug() << event->size();
+
+    m_layout = new QHBoxLayout(this);
+
+    m_layout->addWidget(label);
+    m_layout->addWidget(value);
+    setLayout(m_layout);
 }

@@ -37,7 +37,8 @@ SOURCES += \
     Widgets/Dialog/serialportproperty.cpp \
     Widgets/View/labelwithbox.cpp \
     CPP/SerialPort/serial_common.cpp \
-    Widgets/Dialog/serialportabstract.cpp
+    Widgets/Dialog/serialportabstract.cpp \
+    Widgets/View/abstractview.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -51,7 +52,8 @@ HEADERS += \
     Widgets/Dialog/serialportinfo.h \
     Widgets/Dialog/serialportproperty.h \
     Widgets/View/labelwithbox.h \
-    Widgets/Dialog/serialportabstract.h
+    Widgets/Dialog/serialportabstract.h \
+    Widgets/View/abstractview.h
 
 RESOURCES += \
     resourses.qrc
