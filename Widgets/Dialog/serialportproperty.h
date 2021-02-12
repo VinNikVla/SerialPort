@@ -28,6 +28,8 @@ private:
     void fillStopBits();
     void fillFlowControl();
     PropertySerialPort m_property;
+
+    virtual void createElements() override;
 };
 
 #endif // SERIALPORTPROPERTY_H

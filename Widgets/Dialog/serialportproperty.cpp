@@ -2,28 +2,7 @@
 
 SerialPortProperty::SerialPortProperty(QWidget *parent) : SerialPortAbstract(parent)
 {
-
-    baudRate =  new LabelWithBox("Baud Rate:", this);
-    fillBaudRate();
-    listElements.append(baudRate);
-
-    dataBits = new LabelWithBox("Data Bits:", this);
-    fillDataBits();
-    listElements.append(dataBits);
-
-    parity = new LabelWithBox("Parity:", this);
-    fillParity();
-    listElements.append(parity);
-
-    stopBits = new LabelWithBox("Stop Bits:", this);
-    fillStopBits();
-    listElements.append(stopBits);
-
-    flowCotrol = new LabelWithBox("Flow Control:", this);
-    fillFlowControl();
-    listElements.append(flowCotrol);
-
-
+   createElements();
 }
 
 PropertySerialPort *SerialPortProperty::getProperty()
@@ -91,5 +70,28 @@ void SerialPortProperty::fillFlowControl()
     flowCotrol->addItem(tr("None"), QSerialPort::NoFlowControl);
     flowCotrol->addItem(tr("RTS/CTS"), QSerialPort::HardwareControl);
     flowCotrol->addItem(tr("XON/XOFF"), QSerialPort::SoftwareControl);
+}
+
+void SerialPortProperty::createElements()
+{
+    baudRate =  new LabelWithBox("Baud Rate:", this);
+    fillBaudRate();
+    listElements.append(baudRate);
+
+    dataBits = new LabelWithBox("Data Bits:", this);
+    fillDataBits();
+    listElements.append(dataBits);
+
+    parity = new LabelWithBox("Parity:", this);
+    fillParity();
+    listElements.append(parity);
+
+    stopBits = new LabelWithBox("Stop Bits:", this);
+    fillStopBits();
+    listElements.append(stopBits);
+
+    flowCotrol = new LabelWithBox("Flow Control:", this);
+    fillFlowControl();
+    listElements.append(flowCotrol);
 }
 

@@ -12,7 +12,7 @@
 #include <QString>
 #include "Widgets/Dialog/serialportabstract.h"
 
-static const char blankString[] = QT_TRANSLATE_NOOP("SerialPortINfo", "N/A");
+static const char blankString[] = QT_TRANSLATE_NOOP("SerialPortInfo", "N/A");
 class SerialPortInfo : public SerialPortAbstract
 {
     Q_OBJECT
@@ -38,7 +38,7 @@ private slots:
 
 private:
     void fillPortsInfo();
-    void createElements();
+    virtual void createElements() override;
 
 
 
