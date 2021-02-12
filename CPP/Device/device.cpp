@@ -2,7 +2,7 @@
 
 Device::Device(QObject *parent) :
     QObject(parent),
-    parser(new ParserDevice(this)),
+    m_parser(new ParserDevice(this)),
     m_serialPort(new QSerialPort(this))
 {
     mainMap["X"] = new ValueModel(this);
@@ -10,7 +10,7 @@ Device::Device(QObject *parent) :
     mainMap["Z"] = new ValueModel(this);
     mainMap["W"] = new ValueModel(this);
 
-    connect(parser, &ParserDevice::newData, this, &Device::DataChange);
+    connect(m_parser, &ParserDevice::newData, this, &Device::DataChange);
 
     connect(m_serialPort, &QSerialPort::errorOccurred, this, &Device::handleError);
     connect(m_serialPort, &QSerialPort::readyRead, this, &Device::readData);
@@ -56,7 +56,7 @@ void Device::newProperty(const PropertySerialPort &prop)
 void Device::readData()
 {
     const QByteArray data = m_serialPort->readAll();
-    parser->answer(data);
+    m_parser->answer(data);
 }
 
 void Device::handleError(QSerialPort::SerialPortError error)

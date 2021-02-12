@@ -5,9 +5,7 @@
 #include <QThread>
 #include <QString>
 #include "CPP/Device/parserdevice.h"
-//#include "CPP/SerialPort/serial_blocking.h"
 #include "CPP/UnitsPageModel/valuemodel.h"
-//#include "CPP/SerialPort/serial_common.h"
 
 #include <QMap>
 #include <QDebug>
@@ -44,7 +42,7 @@ private slots:
 private:
 
     QMap<QString, ValueModel*> mainMap;
-    ParserDevice* parser;
+    ParserDevice* m_parser;
     QSerialPort* m_serialPort;
     QString m_nameComPort;
     PropertySerialPort m_currentProperty;
