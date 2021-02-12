@@ -41,7 +41,7 @@ View *MainWindow::getView(const QString &key)
 
 }
 
-QList<View *> *MainWindow::getList()
+const QList<View *> *MainWindow::getList() const
 {
     return &mainList;
 

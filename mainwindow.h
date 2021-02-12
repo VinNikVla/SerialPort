@@ -26,7 +26,7 @@ public:
     ~MainWindow();
 
     View* getView(const QString& key);
-    QList<View*>* getList();
+    const QList<View*>* getList() const ;
 
 signals:
     void newProperty(const PropertySerialPort& prop);
